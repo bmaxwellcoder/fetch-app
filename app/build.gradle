@@ -1,0 +1,68 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    // Application package identifier
+    namespace 'com.example.fetchrewardsexercisejava'
+    // Android SDK version to compile against
+    compileSdk 35
+
+    defaultConfig {
+        // Unique application identifier for Google Play
+        applicationId "com.example.fetchrewardsexercisejava"
+        // Minimum Android version supported
+        minSdk 28
+        // Android version the app is optimized for
+        targetSdk 35
+        // Internal app version number - increment with each release
+        versionCode 1
+        // User-visible version display string
+        versionName "1.0"
+
+        // Test runner configuration
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            // Code obfuscation setting
+            minifyEnabled false
+            // Obfuscation rules
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    // Java version compatibility settings
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    // Core Android components
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+
+    // API response handling
+    implementation libs.volley
+
+    // Testing frameworks
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    // UI Component - efficient list display
+    implementation libs.recyclerview
+
+    // Lifecycle components - manage UI component lifecycles
+    implementation libs.lifecycle.viewmodel
+    implementation libs.lifecycle.livedata
+
+    // Room components - SQLite database abstraction
+    implementation libs.room.runtime
+    annotationProcessor libs.room.compiler
+    androidTestImplementation libs.room.testing
+}
