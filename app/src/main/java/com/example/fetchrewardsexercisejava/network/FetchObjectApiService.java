@@ -1,5 +1,6 @@
 package com.example.fetchrewardsexercisejava.network;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -9,44 +10,46 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.android.volley.toolbox.Volley;
 import com.example.fetchrewardsexercisejava.model.HiringObject;
 
 public class HiringObjectApiService {
     private static final String TAG = "HiringObjectApiService";
     private static final String REQUEST_URL = "https://hiring.fetch.com/hiring.json";
-    private ArrayList<HiringObject> hiringObjectArrayList = new ArrayList<>();
 
-    public List<HiringObject> getHiringObjects(final HiringObjectApiCallback callback) {
+    public static void fetchHiringObjects(Context context, HiringObjectApiCallback callback) {
+        List<HiringObject> hiringObjectArrayList = new ArrayList<>();
+
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 REQUEST_URL,
                 null,
                 response -> {
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
+                    try {
+                        for (int i = 0; i < response.length(); i++) {
                             JSONObject jsonObject = response.getJSONObject(i);
-                            HiringObject hiringObject = new HiringObject();
-
                             String name = jsonObject.getString("name");
-                            if (name == null || name.trim().isEmpty()) {
-                                continue;
-                            }
 
+                            HiringObject hiringObject = new HiringObject();
                             hiringObject.setId(jsonObject.getInt("id"));
                             hiringObject.setListId(jsonObject.getInt("listId"));
-                            hiringObject.setName(jsonObject.getString("name"));
+                            hiringObject.setName(name);
 
                             hiringObjectArrayList.add(hiringObject);
-
-                        } catch (JSONException e) {
-                            Log.e(TAG, "Error parsing object at index " + i + ": " + e.getMessage());
                         }
-                    }
 
-                    if (callback != null) {
-                        callback.onSuccess(hiringObjectArrayList);
+                        if (callback != null) {
+                            callback.onSuccess(hiringObjectArrayList);
+                        }
+
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Error parsing: " + e.getMessage());
+                        if (callback != null) {
+                            callback.onError("Parsing error: " + e.getMessage());
+                        }
                     }
                 },
                 error -> {
@@ -54,10 +57,9 @@ public class HiringObjectApiService {
                     if (callback != null) {
                         callback.onError("Network error: " + error.getMessage());
                     }
-                });
+                }
+        );
 
-        HiringObjectRequestQueue.getInstance().addToRequestQueue(jsonArrayRequest);
-
-        return hiringObjectArrayList;
+        Volley.newRequestQueue(context).add(jsonArrayRequest);
     }
 }

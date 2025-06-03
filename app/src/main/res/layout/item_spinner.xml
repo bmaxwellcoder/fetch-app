@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Layout for spinner items in the list group selector.
+    
+    This layout customizes the appearance of spinner items with:
+    - Custom text styling
+    - Proper padding and margins
+    - Material Design typography
+    
+    The layout ensures:
+    - Consistent appearance across devices
+    - Clear visual hierarchy
+    - Proper text alignment
+    - Adequate touch targets
+-->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/spinnerLabel"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:textSize="16sp"
+    android:background="?attr/selectableItemBackground"
+    android:textColor="@color/black"
+    android:gravity="center" /> 
