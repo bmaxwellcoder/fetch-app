@@ -1,4 +1,4 @@
-package com.example.fetchrewardsexercisejava.model;
+package com.example.fetchapp.model;
 
 import androidx.annotation.NonNull;
 

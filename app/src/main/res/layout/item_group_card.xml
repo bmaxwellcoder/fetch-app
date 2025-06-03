@@ -59,7 +59,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_expand_less"
-                android:contentDescription="Expand or collapse this group"
+                android:contentDescription="@string/expand_or_collapse_this_group"
                 app:tint="@android:color/white" />
 
         </LinearLayout>

@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Vector drawable for the app launcher icon background.
+    
+    This is the background layer of the adaptive icon, which includes:
+    - The base color and shape of the app icon
+    - Designed to work with the foreground layer (ic_launcher_foreground.xml)
+    - Follows Material Design guidelines for adaptive icons
+    
+    The background is designed to:
+    - Provide a solid foundation for the foreground
+    - Support different device shapes and sizes
+    - Maintain brand consistency
+    - Ensure proper contrast with the foreground
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"

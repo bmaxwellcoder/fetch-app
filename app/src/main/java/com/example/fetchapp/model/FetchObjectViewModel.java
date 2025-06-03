@@ -1,14 +1,13 @@
-package com.example.fetchrewardsexercisejava.model;
+package com.example.fetchapp.model;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.fetchrewardsexercisejava.repository.FetchObjectRepository;
+import com.example.fetchapp.repository.FetchObjectRepository;
 
 import java.util.List;
 

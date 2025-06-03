@@ -1,17 +1,34 @@
+/**
+ * App-level build configuration for the Fetch Rewards Exercise app.
+ * 
+ * This file configures:
+ * - Android application settings
+ * - Build variants and types
+ * - Dependencies and libraries
+ * - Testing frameworks
+ */
+
 plugins {
+    // Android application plugin for building the app
     alias(libs.plugins.android.application)
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    // Application package identifier
-    namespace 'com.example.fetchrewardsexercisejava'
+    // Application package identifier for the app
+    namespace 'com.example.fetchapp'
     // Android SDK version to compile against
     compileSdk 35
 
+    // Enable View Binding
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
-        // Unique application identifier for Google Play
-        applicationId "com.example.fetchrewardsexercisejava"
-        // Minimum Android version supported
+        // Unique application identifier for Google Play Store
+        applicationId "com.example.fetchapp"
+        // Minimum Android version supported (Android 9.0 Pie)
         minSdk 28
         // Android version the app is optimized for
         targetSdk 35
@@ -20,49 +37,64 @@ android {
         // User-visible version display string
         versionName "1.0"
 
-        // Test runner configuration
+        // Test runner configuration for instrumentation tests
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            // Code obfuscation setting
+            // Enable code obfuscation for release builds
             minifyEnabled false
-            // Obfuscation rules
+            // ProGuard rules for code optimization and obfuscation
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     // Java version compatibility settings
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        // Use Java 20 features in the source code
+        sourceCompatibility JavaVersion.VERSION_21
+        // Generate Java 20 compatible bytecode
+        targetCompatibility JavaVersion.VERSION_21
     }
 }
 
 dependencies {
     // Core Android components
-    implementation libs.appcompat
-    implementation libs.material
-    implementation libs.activity
-    implementation libs.constraintlayout
+    implementation libs.appcompat        // Backward compatibility library
+    implementation libs.material        // Material Design components
+    implementation libs.activity        // Activity lifecycle components
+    implementation libs.constraintlayout // Constraint-based layouts
 
-    // API response handling
-    implementation libs.volley
+    // Network and API handling
+    implementation libs.navigation.fragment// HTTP networking library
 
     // Testing frameworks
-    testImplementation libs.junit
-    androidTestImplementation libs.ext.junit
-    androidTestImplementation libs.espresso.core
+    testImplementation libs.junit              // Unit testing framework
+    testImplementation libs.core.testing       // Android core testing utilities
+    androidTestImplementation libs.ext.junit   // Android JUnit extensions
+    androidTestImplementation libs.espresso.core // UI testing framework
 
-    // UI Component - efficient list display
-    implementation libs.recyclerview
+    // Mocking frameworks for testing
+    testImplementation libs.jmockit            // JMockit for advanced mocking
+    testImplementation libs.mockito.core       // Mockito core functionality
+    testImplementation libs.mockito.inline     // Mockito inline mocking support
 
-    // Lifecycle components - manage UI component lifecycles
-    implementation libs.lifecycle.viewmodel
-    implementation libs.lifecycle.livedata
+    // UI Components
+    implementation libs.recyclerview           // Efficient list display component
 
-    // Room components - SQLite database abstraction
-    implementation libs.room.runtime
-    annotationProcessor libs.room.compiler
-    androidTestImplementation libs.room.testing
+    // AndroidX SplashScreen
+    implementation libs.core.splashscreen
+
+    // Architecture Components
+    implementation libs.lifecycle.viewmodel    // ViewModel for UI state management
+    implementation libs.lifecycle.livedata     // LiveData for observable data
+
+    // Hilt for Dependency Injection
+    implementation libs.hilt.android
+    annotationProcessor libs.hilt.android.compiler
+
+    // Add Retrofit
+    implementation libs.retrofit
+    implementation libs.converter.gson
 }

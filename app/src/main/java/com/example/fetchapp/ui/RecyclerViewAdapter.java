@@ -1,4 +1,4 @@
-package com.example.fetchrewardsexercisejava.ui;
+package com.example.fetchapp.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.DiffUtil;
-import com.example.fetchrewardsexercisejava.R;
-import com.example.fetchrewardsexercisejava.model.FetchObject;
+import com.example.fetchapp.R;
+import com.example.fetchapp.model.FetchObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

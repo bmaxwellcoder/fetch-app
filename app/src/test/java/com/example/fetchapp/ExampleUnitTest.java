@@ -1,4 +1,4 @@
-package com.example.fetchrewardsexercisejava;
+package com.example.fetchapp;
 
 import org.junit.Test;
 

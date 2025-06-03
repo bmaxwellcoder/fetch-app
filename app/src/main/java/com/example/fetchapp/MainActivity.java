@@ -1,4 +1,4 @@
-package com.example.fetchrewardsexercisejava;
+package com.example.fetchapp;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,14 +8,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.fetchrewardsexercisejava.databinding.ActivityMainBinding;
-import com.example.fetchrewardsexercisejava.ui.RecyclerViewAdapter;
-import com.example.fetchrewardsexercisejava.ui.RecyclerViewFactory;
-import com.example.fetchrewardsexercisejava.ui.UIUtils;
-import com.example.fetchrewardsexercisejava.ui.ViewInitializer;
-import com.example.fetchrewardsexercisejava.ui.WindowUtils;
-import com.example.fetchrewardsexercisejava.model.FetchObject;
-import com.example.fetchrewardsexercisejava.model.FetchObjectViewModel;
+import com.example.fetchapp.databinding.ActivityMainBinding;
+import com.example.fetchapp.ui.RecyclerViewAdapter;
+import com.example.fetchapp.ui.RecyclerViewFactory;
+import com.example.fetchapp.ui.UIUtils;
+import com.example.fetchapp.ui.ViewInitializer;
+import com.example.fetchapp.ui.WindowUtils;
+import com.example.fetchapp.model.FetchObject;
+import com.example.fetchapp.model.FetchObjectViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import java.util.List;

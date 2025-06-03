@@ -1,4 +1,4 @@
-package com.example.fetchrewardsexercisejava;
+package com.example.fetchapp;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.fetchrewardsexercisejava", appContext.getPackageName());
+        assertEquals("com.example.fetchapp", appContext.getPackageName());
     }
 }

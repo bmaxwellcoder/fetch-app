@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Vector drawable for the "expand less" icon.
+    
+    This icon is used in the RecyclerView group headers to indicate that a group
+    can be collapsed to hide items. It follows Material Design guidelines
+    for expand/collapse indicators.
+    
+    Used in:
+    - fetch_object_list_group.xml for the expand/collapse icon
+    - Shows when a group is expanded and can be collapsed
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,8l-6,6 1.41,1.41L12,10.83l4.59,4.58L18,14z"/>
+</vector> 
