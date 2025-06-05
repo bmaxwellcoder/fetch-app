@@ -29,7 +29,6 @@ import androidx.core.splashscreen.SplashScreen;
  * - Implements edge-to-edge display with proper insets handling
  * - Manages RecyclerView with expandable/collapsible groups
  * - Handles list selection via a colored spinner
- * - Provides pull-to-refresh functionality
  * - Manages error and empty state handling
  * - Monitors network state
  *
