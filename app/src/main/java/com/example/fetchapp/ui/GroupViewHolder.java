@@ -1,6 +1,5 @@
 package com.example.fetchapp.ui;
 
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +28,11 @@ import java.util.List;
  * - Maintains separation of concerns by handling UI-specific logic
  */
 public class GroupViewHolder extends RecyclerView.ViewHolder {
-    private static final int ANIMATION_DURATION = 200;
-    private static final String FONT_FAMILY = "sans-serif-medium";
+    // Get animation duration from XML resources
+    private final int animationDuration;
 
-    // Colors for different list headers
-    private static final int[] HEADER_COLORS = {
+    // Header color resource IDs
+    private static final int[] HEADER_COLOR_RES_IDS = {
             R.color.header_blue,
             R.color.header_green,
             R.color.header_purple,
@@ -51,6 +50,10 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
         expandCollapseIcon = itemView.findViewById(R.id.expandCollapseIcon);
         itemsContainer = itemView.findViewById(R.id.itemsContainer);
         headerRow = itemView.findViewById(R.id.headerRow);
+
+        // Initialize animation duration from XML resources
+        animationDuration = itemView.getContext().getResources()
+                .getInteger(R.integer.expand_collapse_animation_duration);
     }
 
     /**
@@ -76,19 +79,17 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
      */
     private void setupHeader(int listId, boolean isExpanded) {
         groupHeaderTextView.setText(groupHeaderTextView.getContext().getString(R.string.list_id, listId));
-        groupHeaderTextView.setTypeface(Typeface.create(FONT_FAMILY, Typeface.BOLD));
         groupHeaderTextView.setContentDescription("Group header for list ID " + listId);
 
-        // Set header background color based on listId
-        int colorIndex = Math.abs(listId) % HEADER_COLORS.length;
-        headerRow.setBackgroundColor(ContextCompat.getColor(headerRow.getContext(), HEADER_COLORS[colorIndex]));
+        // Set header background color based on listId using color resource IDs
+        int colorIndex = Math.abs(listId) % HEADER_COLOR_RES_IDS.length;
+        headerRow.setBackgroundColor(ContextCompat.getColor(headerRow.getContext(), HEADER_COLOR_RES_IDS[colorIndex]));
 
-        expandCollapseIcon.setImageResource(isExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
+        // Use appropriate drop icon based on expansion state
+        int iconRes = isExpanded ? R.drawable.ic_drop_up : R.drawable.ic_drop_down;
+        expandCollapseIcon.setImageResource(iconRes);
+
         headerRow.setSelected(isExpanded);
-        expandCollapseIcon.animate()
-                .rotation(isExpanded ? 0 : 180)
-                .setDuration(ANIMATION_DURATION)
-                .start();
         expandCollapseIcon.setContentDescription(isExpanded ? "Collapse group" : "Expand group");
     }
 
@@ -114,14 +115,9 @@ public class GroupViewHolder extends RecyclerView.ViewHolder {
      * Adds a header row to the items container.
      */
     private void addHeaderRow() {
-        View headerRow = inflateRow();
-        TextView headerIdText = headerRow.findViewById(R.id.itemIdText);
-        TextView headerNameText = headerRow.findViewById(R.id.itemNameText);
-
-        headerIdText.setText("ID");
-        headerNameText.setText("Name");
-        headerIdText.setTypeface(null, Typeface.BOLD);
-        headerNameText.setTypeface(null, Typeface.BOLD);
+        // Use dedicated table header layout instead of programmatic styling
+        View headerRow = LayoutInflater.from(itemsContainer.getContext())
+                .inflate(R.layout.item_table_header, itemsContainer, false);
 
         itemsContainer.addView(headerRow);
         addDivider(itemsContainer);

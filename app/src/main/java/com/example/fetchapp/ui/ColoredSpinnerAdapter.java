@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import com.example.fetchapp.R;
 import com.example.fetchapp.model.FetchObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -106,10 +107,10 @@ public class ColoredSpinnerAdapter extends ArrayAdapter<String> {
      * @param items   The list of FetchObjects to display
      */
     public static void setupSpinner(Context context, Spinner spinner,
-            java.util.List<FetchObject> items) {
-        java.util.List<String> spinnerItems = new java.util.ArrayList<>();
-        java.util.List<Integer> listIds = new java.util.ArrayList<>();
-        spinnerItems.add("- Select a list -");
+            List<FetchObject> items) {
+        List<String> spinnerItems = new ArrayList<>();
+        List<Integer> listIds = new ArrayList<>();
+        spinnerItems.add(context.getString(R.string.select_a_list));
 
         items.stream()
                 .map(FetchObject::getListId)

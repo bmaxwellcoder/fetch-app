@@ -1,0 +1,118 @@
+[
+    {
+        "merged": "com.example.fetchapp-debug-44:/xml_backup_rules.xml.flat",
+        "source": "com.example.fetchapp-main-46:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/drawable_divider.xml.flat",
+        "source": "com.example.fetchapp-main-46:/drawable/divider.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/layout_activity_main.xml.flat",
+        "source": "com.example.fetchapp-main-46:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/layout_common_error.xml.flat",
+        "source": "com.example.fetchapp-main-46:/layout/common_error.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/layout_item_fetch_object.xml.flat",
+        "source": "com.example.fetchapp-main-46:/layout/item_fetch_object.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-anydpi_ic_launcher_round.xml.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-anydpi/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/layout_common_loading.xml.flat",
+        "source": "com.example.fetchapp-main-46:/layout/common_loading.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.fetchapp-main-46:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.fetchapp-main-46:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/layout_item_group_card.xml.flat",
+        "source": "com.example.fetchapp-main-46:/layout/item_group_card.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/layout_item_spinner.xml.flat",
+        "source": "com.example.fetchapp-main-46:/layout/item_spinner.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/layout_item_table_header.xml.flat",
+        "source": "com.example.fetchapp-main-46:/layout/item_table_header.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/drawable_list_item_background.xml.flat",
+        "source": "com.example.fetchapp-main-46:/drawable/list_item_background.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/drawable_group_header_selector.xml.flat",
+        "source": "com.example.fetchapp-main-46:/drawable/group_header_selector.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/drawable_ic_splash.xml.flat",
+        "source": "com.example.fetchapp-main-46:/drawable/ic_splash.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/drawable_ic_expand_less.xml.flat",
+        "source": "com.example.fetchapp-main-46:/drawable/ic_expand_less.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-anydpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/drawable_ic_expand_more.xml.flat",
+        "source": "com.example.fetchapp-main-46:/drawable/ic_expand_more.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.fetchapp-main-46:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.fetchapp-debug-44:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.fetchapp-main-46:/drawable/ic_launcher_foreground.xml"
+    }
+]

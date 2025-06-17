@@ -2,12 +2,11 @@
 agp = "8.10.1"
 coreSplashscreen = "1.0.1"
 hiltAndroid = "2.50"
-hiltNavigationCompose = "1.2.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-appcompat = "1.7.0"
-lifecycleViewmodel = "2.9.0"
+appcompat = "1.7.1"
+lifecycleViewmodel = "2.9.1"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
@@ -15,7 +14,6 @@ mockitoCore = "5.5.0"
 mockitoInline = "4.11.0"
 recyclerview = "1.4.0"
 retrofit = "2.9.0"
-volley = "1.2.1"
 coreTesting = "2.2.0"
 jmockit = "1.49"
 navigationFragment = "2.9.0"
@@ -25,7 +23,6 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -39,7 +36,6 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 jmockit = { group = "org.jmockit", name = "jmockit", version.ref = "jmockit" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }

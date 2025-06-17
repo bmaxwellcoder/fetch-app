@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#03DAC5</color>
+    <color name="background">#FAFAFA</color>
+    <color name="black">#FF000000</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="header_blue">#42A5F5</color>
+    <color name="header_green">#66BB6A</color>
+    <color name="header_orange">#FFA726</color>
+    <color name="header_purple">#AB47BC</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <integer name="default_animation_duration">300</integer>
+    <integer name="expand_collapse_animation_duration">200</integer>
+    <string name="app_name">FetchApp</string>
+    <string name="choose_a_list_to_expand">Choose a list to expand:</string>
+    <string name="error_icon">Error icon</string>
+    <string name="error_message">Error message</string>
+    <string name="expand_or_collapse_this_group">Expand or collapse this group</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="id_header">ID</string>
+    <string name="list_id">List ID: %1$d</string>
+    <string name="loading">Loading…</string>
+    <string name="name_header">Name</string>
+    <string name="refresh_data">Refresh data</string>
+    <string name="retry">Retry</string>
+    <style name="Base.Theme.FetchApp" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+    </style>
+    <style name="GroupHeaderTextStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="TableHeaderTextStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="windowSplashScreenAnimationDuration">300</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.FetchApp</item>
+    </style>
+</resources>

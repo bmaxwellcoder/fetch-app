@@ -8,7 +8,7 @@ import dagger.hilt.android.HiltAndroidApp;
  *
  * Responsibilities:
  * - Initializes Hilt for dependency injection
- * - Serves as the application entry point
+ * - Initializes before activities and serves as the application lifecycle base
  * - Manages application-wide resources and configurations
  *
  * Usage in MVVM:

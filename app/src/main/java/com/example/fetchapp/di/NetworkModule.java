@@ -18,14 +18,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Hilt module that provides network-related dependencies for the app.
  *
  * This module is installed in the SingletonComponent, meaning all provided
- * dependencies
- * will have application-wide singleton scope.
+ * dependencies will have application-wide singleton scope.
  *
  * Responsibilities:
  * - Provide a singleton Retrofit instance configured with the base URL and Gson
  * converter
- * - Provide a singleton instance of the FetchObjectRetrofitService API
- * interface
+ * - Provide a singleton instance of the FetchObjectRetrofitService API interface
  * - Provide the application context for network checks
  *
  * Usage:
@@ -64,14 +62,6 @@ public class NetworkModule {
     /**
      * Provides a singleton instance of the FetchObjectRetrofitService API
      * interface.
-     *
-     * Note: Although the IDE may warn that this method is never used, it is
-     * required
-     * for Hilt/Dagger dependency injection. The method is used at runtime to
-     * provide
-     * the FetchObjectRetrofitService wherever it is injected (e.g., in
-     * repositories).
-     * This warning can be safely ignored.
      *
      * @param retrofit the Retrofit instance to use for creating the service
      * @return a FetchObjectRetrofitService implementation

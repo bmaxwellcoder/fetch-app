@@ -72,6 +72,25 @@ public class UIUtils {
     }
 
     /**
+     * Shows the loading view with a retry message.
+     * 
+     * @param loadingView  The loading view to show
+     * @param retryMessage The retry message to display
+     * @param recyclerView The RecyclerView to hide
+     * @param errorView    The error view to hide
+     */
+    public static void showRetrying(View loadingView, String retryMessage, RecyclerView recyclerView, View errorView) {
+        TextView loadingText = loadingView.findViewById(R.id.loadingText);
+        if (loadingText != null) {
+            loadingText.setText(retryMessage);
+        }
+
+        recyclerView.setVisibility(View.GONE);
+        loadingView.setVisibility(View.VISIBLE);
+        errorView.setVisibility(View.GONE);
+    }
+
+    /**
      * Scrolls the RecyclerView to the specified list ID.
      * 
      * @param recyclerView The RecyclerView to scroll

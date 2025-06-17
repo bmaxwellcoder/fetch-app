@@ -1,6 +1,9 @@
 package com.example.fetchapp;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -9,15 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.fetchapp.databinding.ActivityMainBinding;
+
 import com.example.fetchapp.ui.RecyclerViewAdapter;
 import com.example.fetchapp.ui.RecyclerViewFactory;
 import com.example.fetchapp.ui.UIUtils;
-import com.example.fetchapp.ui.ViewInitializer;
 import com.example.fetchapp.ui.WindowUtils;
 import com.example.fetchapp.model.FetchObject;
-import com.example.fetchapp.model.FetchObjectViewModel;
+import com.example.viewmodel.FetchObjectViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.core.splashscreen.SplashScreen;
@@ -26,35 +30,46 @@ import androidx.core.splashscreen.SplashScreen;
  * Main activity of the application that displays a list of FetchObjects.
  *
  * Responsibilities:
+ * - Acts as the user-facing entry point to the application
  * - Implements edge-to-edge display with proper insets handling
  * - Manages RecyclerView with expandable/collapsible groups
  * - Handles list selection via a colored spinner
  * - Manages error and empty state handling
- * - Monitors network state
+ * - Integrates splash screen for app startup
  *
  * Usage in MVVM:
  * - Uses ViewModel for data management
  * - Observes LiveData for UI updates
- * - Handles configuration changes
+ * - Serves as an Android entry point with Hilt injection (@AndroidEntryPoint)
  * - Maintains proper lifecycle management
  */
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity implements ViewInitializer.DataRefreshListener {
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
     private RecyclerViewAdapter recyclerViewAdapter;
     private FetchObjectViewModel fetchObjectViewModel;
-    private boolean isFirstLoad = true;
 
+    /**
+     * Initial lifecycle method called when the activity is first created.
+     * Responsible for one-time initialization of the activity:
+     * - Installs the splash screen for app startup experience
+     * - Enables edge-to-edge display
+     * - Initializes view binding
+     * - Sets up UI components and observers
+     * - Configures window insets
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Set up retry button in error view to trigger data refresh
-        binding.errorView.retryButton.setOnClickListener(v -> onRefreshRequested());
+        binding.errorView.retryButton.setOnClickListener(v -> refreshData());
 
         setupViewModel();
         setupRecyclerView();
@@ -62,27 +77,25 @@ public class MainActivity extends AppCompatActivity implements ViewInitializer.D
         WindowUtils.setupEdgeToEdge(binding.main);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Only refresh data if this is the first load or if we're returning to the
-        // activity
-        if (fetchObjectViewModel != null && (isFirstLoad || !isFinishing())) {
-            fetchData();
-            isFirstLoad = false;
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Clean up any ongoing operations
-        binding.recyclerView.stopScroll();
-    }
-
+    /**
+     * Final call in the activity lifecycle when the activity is being destroyed.
+     * This is the appropriate place to:
+     * - Release all resources that might cause memory leaks
+     * - Unregister listeners and observers
+     * - Nullify references to allow garbage collection
+     *
+     * Called either when the activity is finishing (via finish() call or user
+     * closing it),
+     * or when the system temporarily destroys the activity due to configuration
+     * changes.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // Cancel any ongoing operations to prevent memory leaks
+        if (fetchObjectViewModel != null) {
+            fetchObjectViewModel.cancelFetch();
+        }
         // Clear references to prevent memory leaks
         binding = null;
         recyclerViewAdapter = null;
@@ -136,11 +149,21 @@ public class MainActivity extends AppCompatActivity implements ViewInitializer.D
                 }
             }
         });
+
+        // Observe retry state
+        fetchObjectViewModel.getRetryState().observe(this, retryMessage -> {
+            if (retryMessage != null && !isFinishing()) {
+                showRetrying(retryMessage);
+            }
+        });
+
+        // Load data initially if not already loaded
+        fetchObjectViewModel.fetchDataIfNeeded();
     }
 
     /**
      * Shows the data view and updates the UI accordingly.
-     * 
+     *
      * @param items The list of items to display
      */
     private void showData(List<FetchObject> items) {
@@ -153,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements ViewInitializer.D
 
     /**
      * Shows the error view with the specified error message.
-     * 
+     *
      * @param errorMessage The error message to display
      */
     private void showError(String errorMessage) {
@@ -169,15 +192,23 @@ public class MainActivity extends AppCompatActivity implements ViewInitializer.D
     }
 
     /**
-     * Fetches data from the ViewModel.
+     * Shows the loading view with retry message.
      */
-    private void fetchData() {
-        fetchObjectViewModel.fetchData();
+    private void showRetrying(String retryMessage) {
+        UIUtils.showRetrying(binding.loadingView.getRoot(), retryMessage, binding.recyclerView,
+                binding.errorView.getRoot());
+    }
+
+    /**
+     * Refreshes data from the ViewModel (user-initiated).
+     */
+    private void refreshData() {
+        fetchObjectViewModel.refreshData();
     }
 
     /**
      * Updates the spinner options based on the provided items.
-     * 
+     *
      * @param items The list of items to display in the spinner
      */
     private void updateSpinnerOptions(List<FetchObject> items) {
@@ -206,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements ViewInitializer.D
 
     /**
      * Scrolls the RecyclerView to the specified list ID.
-     * 
+     *
      * @param listId The list ID to scroll to
      */
     private void scrollToListId(int listId) {
@@ -218,11 +249,32 @@ public class MainActivity extends AppCompatActivity implements ViewInitializer.D
      * Sets up the refresh button.
      */
     private void setupRefreshButton() {
-        binding.refreshFab.setOnClickListener(v -> fetchData());
+        binding.refreshFab.setOnClickListener(v -> refreshData());
     }
 
-    @Override
-    public void onRefreshRequested() {
-        fetchData();
+    /**
+     * Public method to reset the app state.
+     * Can be called from external debugging tools or during testing.
+     */
+    public void resetAppState() {
+        Log.d(TAG, "Resetting app state - alternative to cache invalidation");
+        if (fetchObjectViewModel != null) {
+            fetchObjectViewModel.resetState();
+        }
+
+        // Clear adapter data
+        if (recyclerViewAdapter != null) {
+            recyclerViewAdapter.setData(new ArrayList<>());
+        }
+
+        // Reset UI state
+        showLoading();
+
+        // Restart data loading after a brief delay
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (fetchObjectViewModel != null) {
+                fetchObjectViewModel.fetchData();
+            }
+        }, 500);
     }
 }

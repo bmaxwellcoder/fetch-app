@@ -44,6 +44,7 @@ public class RecyclerViewAdapterTest {
         Object groupedData = processData.invoke(adapter, items);
 
         // Use reflection to access private fields
+        assert groupedData != null;
         Field groupedItemsField = groupedData.getClass().getDeclaredField("groupedItems");
         Field sortedListIdsField = groupedData.getClass().getDeclaredField("sortedListIds");
         groupedItemsField.setAccessible(true);
@@ -56,6 +57,7 @@ public class RecyclerViewAdapterTest {
         List<Integer> sortedListIds = (List<Integer>) sortedListIdsField.get(groupedData);
 
         // Check grouping
+        assert groupedItems != null;
         assertEquals(2, groupedItems.size());
         assertTrue(groupedItems.containsKey(1));
         assertTrue(groupedItems.containsKey(2));
@@ -65,6 +67,7 @@ public class RecyclerViewAdapterTest {
 
         // Check sorting within group
         List<FetchObject> group2 = groupedItems.get(2);
+        assert group2 != null;
         assertEquals("B", group2.get(0).getName());
         assertEquals("C", group2.get(1).getName());
     }

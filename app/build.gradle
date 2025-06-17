@@ -15,6 +15,13 @@ plugins {
 }
 
 android {
+    sourceSets {
+        main {
+            java {
+                exclude 'com/example/fetchrewardsexercisejava/**'
+            }
+        }
+    }
     // Application package identifier for the app
     namespace 'com.example.fetchapp'
     // Android SDK version to compile against
@@ -52,10 +59,10 @@ android {
 
     // Java version compatibility settings
     compileOptions {
-        // Use Java 20 features in the source code
-        sourceCompatibility JavaVersion.VERSION_21
-        // Generate Java 20 compatible bytecode
-        targetCompatibility JavaVersion.VERSION_21
+        // Use Java 11 features in the source code
+        sourceCompatibility JavaVersion.VERSION_11
+        // Generate Java 11 compatible bytecode
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
@@ -96,5 +103,5 @@ dependencies {
 
     // Add Retrofit
     implementation libs.retrofit
-    implementation libs.converter.gson
+    implementation libs.converter.gson //  companion library that allows Retrofit to convert JSON responses into Java objects
 }

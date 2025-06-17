@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "com.example.fetchapp-mergeDebugResources-43:/layout/activity_main.xml",
+        "source": "com.example.fetchapp-main-46:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-mergeDebugResources-43:/layout/item_spinner.xml",
+        "source": "com.example.fetchapp-main-46:/layout/item_spinner.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-mergeDebugResources-43:/layout/common_error.xml",
+        "source": "com.example.fetchapp-main-46:/layout/common_error.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-mergeDebugResources-43:/layout/common_loading.xml",
+        "source": "com.example.fetchapp-main-46:/layout/common_loading.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-mergeDebugResources-43:/layout/item_table_header.xml",
+        "source": "com.example.fetchapp-main-46:/layout/item_table_header.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-mergeDebugResources-43:/layout/item_group_card.xml",
+        "source": "com.example.fetchapp-main-46:/layout/item_group_card.xml"
+    },
+    {
+        "merged": "com.example.fetchapp-mergeDebugResources-43:/layout/item_fetch_object.xml",
+        "source": "com.example.fetchapp-main-46:/layout/item_fetch_object.xml"
+    }
+]

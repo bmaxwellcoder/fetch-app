@@ -102,12 +102,17 @@ public class FetchObjectTest {
 
         assertTrue(str.contains("id=1"));
         assertTrue(str.contains("listId=2"));
-        assertTrue(str.contains("name='Test'"));
+        assertTrue(str.contains("name=Test"));
 
         // Test with null name
         FetchObject nullNameObj = new FetchObject(1, 2, null);
         String nullNameStr = nullNameObj.toString();
         assertTrue(nullNameStr.contains("name=null"));
+
+        // Test with empty name
+        FetchObject emptyNameObj = new FetchObject(1, 2, "");
+        String emptyNameStr = emptyNameObj.toString();
+        assertTrue(emptyNameStr.contains("name=\"\""));
     }
 
     /**

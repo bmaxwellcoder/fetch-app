@@ -7,8 +7,10 @@ import android.app.Application;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 import com.example.fetchapp.model.FetchObject;
-import com.example.fetchapp.model.FetchObjectViewModel;
+import com.example.viewmodel.FetchObjectViewModel;
 import com.example.fetchapp.repository.FetchObjectRepository;
+import com.example.fetchapp.repository.RepositoryCallback;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -54,6 +56,9 @@ public class FetchObjectViewModelTest {
     @Mock
     private Observer<Boolean> loadingObserver;
 
+    @Mock
+    private Observer<String> retryStateObserver;
+
     /**
      * Sets up the test environment before each test.
      * Initializes the ViewModel and sets up observers for LiveData.
@@ -65,6 +70,7 @@ public class FetchObjectViewModelTest {
         viewModel.getAllFetchObjects().observeForever(fetchObjectsObserver);
         viewModel.getErrorState().observeForever(errorStateObserver);
         viewModel.getLoading().observeForever(loadingObserver);
+        viewModel.getRetryState().observeForever(retryStateObserver);
     }
 
     /**
@@ -80,12 +86,12 @@ public class FetchObjectViewModelTest {
         mockData.add(new FetchObject(1, 1, "Test Item"));
 
         doAnswer(invocation -> {
-            FetchObjectRepository.RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
+            RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
             callback.onSuccess(mockData);
             return null;
         }).when(mockRepository).fetchObjects(any());
 
-        viewModel.fetchFetchObjects();
+        viewModel.fetchData();
 
         verify(loadingObserver).onChanged(true);
         verify(fetchObjectsObserver).onChanged(mockData);
@@ -105,12 +111,12 @@ public class FetchObjectViewModelTest {
         String errorMessage = "Test error";
 
         doAnswer(invocation -> {
-            FetchObjectRepository.RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
+            RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
             callback.onError(errorMessage);
             return null;
         }).when(mockRepository).fetchObjects(any());
 
-        viewModel.fetchFetchObjects();
+        viewModel.fetchData();
 
         verify(loadingObserver).onChanged(true);
         // Allow initial null emission, then the error message
@@ -132,16 +138,101 @@ public class FetchObjectViewModelTest {
     @Test
     public void testEmptyResponse() {
         doAnswer(invocation -> {
-            FetchObjectRepository.RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
+            RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
             callback.onSuccess(new ArrayList<>());
             return null;
         }).when(mockRepository).fetchObjects(any());
 
-        viewModel.fetchFetchObjects();
+        viewModel.fetchData();
 
         verify(loadingObserver).onChanged(true);
         verify(fetchObjectsObserver).onChanged(anyList());
         verify(errorStateObserver, never()).onChanged(argThat(Objects::nonNull));
         verify(loadingObserver, atLeastOnce()).onChanged(false);
+    }
+
+    /**
+     * Tests retry state management during data fetching.
+     * Verifies that:
+     * - Retry state is updated when retries occur
+     * - Retry state is cleared on success
+     * - Retry messages are properly communicated
+     */
+    @Test
+    public void testRetryStateHandling() {
+        String retryMessage = "Retrying... (2/3)";
+        List<FetchObject> mockData = new ArrayList<>();
+        mockData.add(new FetchObject(1, 1, "Test Item"));
+
+        doAnswer(invocation -> {
+            RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
+            // Simulate a retry attempt followed by success
+            callback.onRetrying(retryMessage);
+            callback.onSuccess(mockData);
+            return null;
+        }).when(mockRepository).fetchObjects(any());
+
+        viewModel.fetchData();
+
+        // Verify retry state sequence using InOrder
+        InOrder inOrder = inOrder(retryStateObserver);
+        inOrder.verify(retryStateObserver).onChanged(null); // Initial clear
+        inOrder.verify(retryStateObserver).onChanged(retryMessage); // Retry message
+        inOrder.verify(retryStateObserver).onChanged(null); // Final clear
+
+        // Verify successful completion
+        verify(fetchObjectsObserver).onChanged(mockData);
+        verify(loadingObserver, atLeastOnce()).onChanged(false);
+    }
+
+    /**
+     * Tests that fetchDataIfNeeded only fetches data once.
+     * Verifies that:
+     * - Data is fetched on first call
+     * - Data is not fetched on subsequent calls when data already exists
+     */
+    @Test
+    public void testFetchDataIfNeeded() {
+        List<FetchObject> mockData = new ArrayList<>();
+        mockData.add(new FetchObject(1, 1, "Test Item"));
+
+        doAnswer(invocation -> {
+            RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
+            callback.onSuccess(mockData);
+            return null;
+        }).when(mockRepository).fetchObjects(any());
+
+        // First call should fetch data
+        viewModel.fetchDataIfNeeded();
+        verify(mockRepository, times(1)).fetchObjects(any());
+
+        // Second call should not fetch data again
+        viewModel.fetchDataIfNeeded();
+        verify(mockRepository, times(1)).fetchObjects(any());
+    }
+
+    /**
+     * Tests that refreshData always fetches data.
+     * Verifies that:
+     * - Data is fetched on every call regardless of current state
+     */
+    @Test
+    public void testRefreshDataAlwaysFetches() {
+        List<FetchObject> mockData = new ArrayList<>();
+        mockData.add(new FetchObject(1, 1, "Test Item"));
+
+        doAnswer(invocation -> {
+            RepositoryCallback<List<FetchObject>> callback = invocation.getArgument(0);
+            callback.onSuccess(mockData);
+            return null;
+        }).when(mockRepository).fetchObjects(any());
+
+        // First call
+        viewModel.refreshData();
+        verify(mockRepository, times(1)).fetchObjects(any());
+
+        // Second call should still fetch data
+        viewModel.refreshData();
+        verify(mockRepository, times(2)).fetchObjects(any());
     }
 }

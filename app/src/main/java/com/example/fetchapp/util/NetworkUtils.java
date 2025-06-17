@@ -26,12 +26,14 @@ public class NetworkUtils {
         public static boolean isNetworkAvailable(Context context) {
                 ConnectivityManager connectivityManager = (ConnectivityManager) context
                                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (connectivityManager == null)
+                if (connectivityManager == null) {
                         return false;
+                }
 
                 Network network = connectivityManager.getActiveNetwork();
-                if (network == null)
+                if (network == null) {
                         return false;
+                }
 
                 NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(network);
                 return capabilities != null &&

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Animation durations -->
+    <integer name="expand_collapse_animation_duration">200</integer>
+    
+    <!-- Other timing constants -->
+    <integer name="default_animation_duration">300</integer>
+</resources> 

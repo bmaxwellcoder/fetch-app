@@ -2,14 +2,22 @@
     <!-- App name -->
     <string name="app_name">FetchApp</string>
 
-    <!-- Accessibility and UI labels -->
+    <!-- UI labels -->
+    <string name="select_a_list">- Select a list -</string>
     <string name="expand_or_collapse_this_group">Expand or collapse this group</string>
     <string name="loading">Loading…</string>
     <string name="error_icon">Error icon</string>
+    <string name="error_message">Error message</string>
     <string name="retry">Retry</string>
     <string name="choose_a_list_to_expand">Choose a list to expand:</string>
+    <string name="_0">0</string>
+    <string name="item_0">Item 0</string>
     <string name="refresh_data">Refresh data</string>
 
     <!-- List/group labels -->
-    <string name="list_id">List ID: %1$d</string>
+    <string name="list_id">List ID: %d</string>
+
+    <!-- Table headers -->
+    <string name="id_header">ID</string>
+    <string name="name_header">Name</string>
 </resources>

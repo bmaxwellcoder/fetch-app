@@ -2,6 +2,8 @@ package com.example.fetchapp.model;
 
 import androidx.annotation.NonNull;
 
+import java.util.Objects;
+
 /**
  * Model class representing a Fetch Object from the API.
  *
@@ -33,6 +35,7 @@ public class FetchObject {
      * of FetchObject from JSON data.
      */
     public FetchObject() {
+
     }
 
     /**
@@ -121,7 +124,7 @@ public class FetchObject {
         return "FetchObject{" +
                 "id=" + id +
                 ", listId=" + listId +
-                ", name=" + (name != null ? "'" + name + "'" : "null") +
+                ", name=" + (name == null ? "null" : (name.isEmpty() ? "\"\"" : name)) +
                 '}';
     }
 
@@ -142,7 +145,7 @@ public class FetchObject {
         FetchObject that = (FetchObject) o;
         return id == that.id &&
                 listId == that.listId &&
-                (name != null ? name.equals(that.name) : that.name == null);
+                (Objects.equals(name, that.name));
     }
 
     /**
